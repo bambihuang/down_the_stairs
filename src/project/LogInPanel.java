@@ -62,22 +62,22 @@ public class LogInPanel extends JPanel implements ActionListener {
 		Image newimg = image.getScaledInstance(62, 62, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
 		imageIcon = new ImageIcon(newimg); // transform it back
 
-		login = new JButton(imageIcon);
-		login.setBounds(429, 270, 62, 62);
+		login = new JButton(new ImageIcon("img/login.png"));
+		login.setBounds(143, 240, 313, 62);
 		login.addActionListener(this);
 		login.setBorderPainted(false);// 去邊框
 		login.setContentAreaFilled(false);// 去底色
 		this.add(login);
 
 		signup = new JButton(new ImageIcon("img/signup.png"));
-		signup.setBounds(109, 270, 313, 62);
+		signup.setBounds(143, 320, 313, 62);
 		signup.addActionListener(this);
 		signup.setBorderPainted(false);
 		signup.setContentAreaFilled(false);
 		this.add(signup);
 
 		guestLogin = new JButton(new ImageIcon("img/as_guest.png"));
-		guestLogin.setBounds(143, 380, 313, 62);
+		guestLogin.setBounds(143, 400, 313, 62);
 		guestLogin.addActionListener(this);
 		guestLogin.setBorderPainted(false);
 		guestLogin.setContentAreaFilled(false);
