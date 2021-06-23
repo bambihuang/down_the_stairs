@@ -146,6 +146,9 @@ public class LogInPanel extends JPanel implements ActionListener {
 
 	// 前往遊戲選單
 	private void switchToMenu() {
+		accountArea.setText("");
+		passwordField.setText("");
+		
 		new MainFrame(2);
 	}
 	
