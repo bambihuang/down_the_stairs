@@ -84,7 +84,7 @@ public class MessageBoard {
 	Message message[] = new Message[count];
 	Border border = BorderFactory.createLineBorder(Color.gray);
 	ArrayList<Message> msgArray = new ArrayList<>();
-	MysqlConnector mc = new MysqlConnector();
+	MysqlConnector mc = new MysqlConnector(MysqlConnector.MESSAGETABLE);
 	
 	MessageBoard() {
 		createAndShowGUI();

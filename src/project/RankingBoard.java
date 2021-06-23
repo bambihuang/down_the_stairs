@@ -65,7 +65,7 @@ public class RankingBoard {
 	int rowcount;
 	RankingRow message[];
 	ArrayList<RankingRow> msgArray = new ArrayList<>();
-	MysqlConnector mc = new MysqlConnector();
+	MysqlConnector mc = new MysqlConnector(MysqlConnector.RANKINGTABLE);
 
 	RankingBoard() {
 		createAndShowGUI();

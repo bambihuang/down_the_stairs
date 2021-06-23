@@ -10,6 +10,7 @@ public class MysqlConnector {
 	String player, message, timestamp; // timestamp sample:2021-06-21 00:00:00
 	int score;
 	
+	private String mode;
 	static final String RANKINGTABLE = "rankingtest";
 	static final String MESSAGETABLE = "messageboard";
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -21,6 +22,10 @@ public class MysqlConnector {
 	public String insertNewMessage = "INSERT INTO R0OJxo6kKl.messageboard VALUES ('"+player+"','"+message+"','"+timestamp+"')";
 	public String selectAllMessage = "SELECT message, account, time FROM R0OJxo6kKl.messageboard ORDER BY time DESC";
 	private String data = "";
+	
+	MysqlConnector(String mode) {
+		this.mode = mode;
+	}
 
 	public void connectMysql(String command) {
 		Connection conn = null; // 和資料庫取得連線
@@ -44,11 +49,21 @@ public class MysqlConnector {
 				stmt.executeUpdate(command);
 
 			// Database dataset
-			while (rs.next()) {
-				data += rs.getString("player") + "," + rs.getString("score") + ";";
-				System.out.print(rs.getString("player"));
-				System.out.println("," + rs.getString("score"));
+			if (mode.equals(RANKINGTABLE)) {
+				while (rs.next()) {
+					data += rs.getString("player") + "," + rs.getString("score") + ";";
+					System.out.print(rs.getString("player"));
+					System.out.println("," + rs.getString("score"));
+				}
+			} else if (mode.equals(MESSAGETABLE)) {
+				while (rs.next()) {
+					data += rs.getString("message") + "," + rs.getString("account") + "," + rs.getString("time") + ";";
+					System.out.print(rs.getString("player"));
+					System.out.println("," + rs.getString("score"));
+				}
 			}
+			
+			
 			
 			// Close connection
 			rs.close();

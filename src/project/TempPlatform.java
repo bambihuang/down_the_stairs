@@ -1,3 +1,5 @@
+package project;
+
 import java.awt.Rectangle;
 import java.util.Random;
 
