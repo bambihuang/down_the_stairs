@@ -19,13 +19,6 @@ public class LogInPanel extends JPanel implements ActionListener {
 	private JPasswordField passwordField;
 	private JButton login, signup, guestLogin;
 	private String acc;
-	private char[] pw;
-	private String acctest = "Edentest";
-	private ArrayList<String> accArray = new ArrayList<String>();//{"Amy","Ben","Mark","Grace","Eden"});
-	private String[] acclist = {"Amy","Ben","Mark","Grace","Eden"};
-	private String playerinfo = "eden,amy,ben";
-	private char[] correctpw = {'1','2','3','4','5','6','7','8'};
-	private JFrame optionFrame = new JFrame();
 	
 	LogInPanel() {
 		accountLabel = new JLabel("ACCOUNT");
@@ -99,62 +92,52 @@ public class LogInPanel extends JPanel implements ActionListener {
 	}
 	
 	private void login() {
+		JDBC_test2 jdbc2 = new JDBC_test2();
 		acc = accountArea.getText();
-		pw  = passwordField.getPassword();
-
-		// TODO:search acc is exist or not in mysql
-		Boolean isAccountExist = false;
-		String[] info = playerinfo.split(",");
-		for (String name : info) {
-			if (acc.equals(name)) {
-				isAccountExist = true;
-			}
-			break;
-		}
 		
-		if (isAccountExist) {
-			if (checkPassword()) {
-				// TODO:save acc info into player system
+		User user = new User();
+		user.setName(acc);
+        user.setPassword(new String(passwordField.getPassword()));
+		User loginuser = jdbc2.login(user);
+		if (loginuser != null) {// 先確認資料庫有此帳號
+			if (user.getPassword().equals(loginuser.getPassword())) {// 確認密碼
 				switchToMenu();
 			} else {
-				JOptionPane.showMessageDialog(optionFrame,
-						"Password fail !","",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "密碼錯誤，請重新確認！", "密碼錯誤", JOptionPane.PLAIN_MESSAGE);
 			}
+		} else if (acc.equals("")) {// 確認是否有輸入帳號
+			JOptionPane.showMessageDialog(null, "請輸入帳號！", "帳號錯誤", JOptionPane.PLAIN_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(optionFrame,
-					"Account not exist !","",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "無此帳號，請先註冊！", "帳號錯誤", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
 	private void signup() {
+		JDBC_test2 jdbc = new JDBC_test2();
 		acc = accountArea.getText();
-		pw  = passwordField.getPassword();
 		
-		// TODO:search acc is exist or not in mysql
-		Boolean isAccountExist = false;
-		String[] info = playerinfo.split(",");
-		for (String name : info) {
-			if (acc.equals(name)) {
-				isAccountExist = true;
-			}
-			break;
-		}
-		
-		if (isAccountExist) {
-			JOptionPane.showMessageDialog(optionFrame,
-					"Account exist !","",JOptionPane.WARNING_MESSAGE);
-		} else {
-			Boolean isLegal = false;
-			if (pw.length >= 6) isLegal = true;
-			if (isLegal) {
-				// TODO:insert acc and pw into mysql
-				// TODO:save acc and pw into player system
-				Arrays.fill(pw, '0');
-				switchToMenu();
+		if (!acc.equals("")) {//確定是否輸入帳號
+			User user = new User();
+			user.setName(acc);
+	        user.setPassword(new String(passwordField.getPassword()));
+			
+			if (!jdbc.isExist(user)) {//先認確資料庫無此帳號
+				if (!(passwordField.getPassword().length == 0)) {//確定是否輸入密碼	
+					if (jdbc.isAdd(user)) {
+						if (JOptionPane.showConfirmDialog(null, "註冊成功，按確認進入首頁！", "註冊成功",JOptionPane.WARNING_MESSAGE) == 0) {
+							switchToMenu();
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "你遇到了工程師也無解的問題，請重新輸入", "密碼錯誤",JOptionPane.PLAIN_MESSAGE);
+					}	
+				} else {
+					JOptionPane.showMessageDialog(null, "請輸入密碼！", "密碼錯誤",JOptionPane.PLAIN_MESSAGE);
+				}
 			} else {
-				JOptionPane.showMessageDialog(optionFrame,
-						"Password must contain at least 6 characters","",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "帳號已重複，請重新輸入！", "帳號錯誤",JOptionPane.PLAIN_MESSAGE);
 			}
+		} else {
+			JOptionPane.showMessageDialog(null, "請輸入帳號！", "帳號錯誤",JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
@@ -169,31 +152,4 @@ public class LogInPanel extends JPanel implements ActionListener {
 		new MainFrame(2);
 	}
 	
-	private boolean checkPassword() {
-		pw = passwordField.getPassword();
-		
-		// TODO:get pw in mysql
-		char[] correct = { 'b', 'u', 'g', 'a', 'b', 'o', 'o' };
-
-		boolean isCorrect = isPasswordCorrect(pw,correct);
-		// Zero out the possible password, for security.
-		Arrays.fill(pw, '0');
-	    Arrays.fill(correct,'0');
-
-		passwordField.selectAll();
-		return isCorrect;
-	}
-	
-	private static boolean isPasswordCorrect(char[] input, char[] correctPassword) {
-	    boolean isCorrect = false;
-
-	    if (input.length != correctPassword.length) {
-	        isCorrect = false;
-	    } else {
-	        isCorrect = Arrays.equals (input, correctPassword);
-	    }
-	    
-	    return isCorrect;
-	}
-
 }
