@@ -95,8 +95,11 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		lblname.setPreferredSize(new Dimension(190, 25));
 		lblname.setHorizontalAlignment(SwingConstants.CENTER);
 		bestLevel = loginuser.getScore();
-		lblRecord2.setText("     " + bestLevel + " by " + name);
-		
+		if(!name.equals("Guest")) {
+			lblRecord2.setText("     " + bestLevel + " by " + name);
+		}else {
+			lblRecord2.setText("     " + 0 + " by Guest");
+		}
 
 		String pathHelp = "img/pause.png";
 		Icon iconHelp = new ImageIcon(pathHelp);
