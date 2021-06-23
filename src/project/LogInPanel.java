@@ -45,15 +45,8 @@ public class LogInPanel extends JPanel implements ActionListener {
 		passwordField.setFont(new Font("Calibri", Font.TRUETYPE_FONT, 16));
 		passwordField.setForeground(Color.white);
 		passwordField.setBackground(Color.black);
-		//passwordField.setEchoChar('o');
 		passwordField.setActionCommand("");
-		// passwordField.addActionListener(this);
 		this.add(passwordField);
-
-		ImageIcon imageIcon = new ImageIcon("img/login.png"); // load the image to a imageIcon
-		Image image = imageIcon.getImage(); // transform it
-		Image newimg = image.getScaledInstance(62, 62, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-		imageIcon = new ImageIcon(newimg); // transform it back
 
 		login = new JButton(new ImageIcon("img/login.png"));
 		login.setBounds(143, 240, 313, 62);
@@ -95,20 +88,22 @@ public class LogInPanel extends JPanel implements ActionListener {
 		JDBC_test2 jdbc2 = new JDBC_test2();
 		acc = accountArea.getText();
 		
-		User user = new User();
-		user.setName(acc);
-        user.setPassword(new String(passwordField.getPassword()));
-		User loginuser = jdbc2.login(user);
-		if (loginuser != null) {// 先確認資料庫有此帳號
-			if (user.getPassword().equals(loginuser.getPassword())) {// 確認密碼
-				switchToMenu();
+		if (!acc.equals("")) {// 先確認是否有輸入帳號
+			User user = new User();
+			user.setName(acc);
+	        user.setPassword(new String(passwordField.getPassword()));
+			User loginuser = jdbc2.login(user);
+			if (loginuser.getName() != null) {// 確認資料庫有此帳號
+				if (user.getPassword().equals(loginuser.getPassword())) {// 確認密碼
+					switchToMenu();
+				} else {
+					JOptionPane.showMessageDialog(null, "密碼錯誤，請重新確認！", "密碼錯誤", JOptionPane.PLAIN_MESSAGE);
+				}
 			} else {
-				JOptionPane.showMessageDialog(null, "密碼錯誤，請重新確認！", "密碼錯誤", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, "無此帳號，請先註冊！", "帳號錯誤", JOptionPane.PLAIN_MESSAGE);
 			}
-		} else if (acc.equals("")) {// 確認是否有輸入帳號
-			JOptionPane.showMessageDialog(null, "請輸入帳號！", "帳號錯誤", JOptionPane.PLAIN_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(null, "無此帳號，請先註冊！", "帳號錯誤", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, "請輸入帳號！", "帳號錯誤", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
@@ -143,7 +138,6 @@ public class LogInPanel extends JPanel implements ActionListener {
 
 	// 以遊客身份進入遊戲
 	private void guestLogin() {
-		// TODO:set a guest acc into player system
 		switchToMenu();
 	}
 
