@@ -12,7 +12,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 	private JButton btnPause, btnPlay, btnExit, btnClearRecord, btnrecord;
 	private int level = 0, lives = 12, seconds = 0, bestLevel = 0, s = 0, platformPlayerIsOn = -1;
 	private player p;
-	private JMenu menu;
+	//private JMenu menu;
 	private boolean start = false, moveRight = false, moveLeft = false, pause = false;
 	private Timer gameTimer, platformTimer;
 	private Platform[] platforms;
@@ -96,7 +96,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		lblname.setHorizontalAlignment(SwingConstants.CENTER);
 		bestLevel = loginuser.getScore();
 		if(!name.equals("Guest")) {
-			lblRecord2.setText("     " + bestLevel + " by " + name);
+			lblRecord2.setText("     " + loginuser.getScore() + " by " + name);
 		}else {
 			lblRecord2.setText("     " + 0 + " by Guest");
 		}
@@ -200,12 +200,13 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		if (arg0.getSource() == btnPause) {
 			if (start) {
-				// �C�������Upause��
+				// press pause when game started
 				if (!pause) {
 					pause = true;
 					gameTimer.stop();
 					platformTimer.stop();
-					JOptionPane.showMessageDialog(null, "�ɥi��U��V�h�Ӽh�A�n�~��Ы�pause�C", "DownTheStairs",
+					JOptionPane.showMessageDialog(null, "Try to get as deep in the cave as possible."
+							+ "\nTo continue, press the pause button.", "DownTheStairs",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					pause = false;
@@ -214,16 +215,17 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 				}
 			} else {
 				// �C���|���}�l�ɫ��Upause��
-				JOptionPane.showMessageDialog(null, "�Q�Υ��k��V�䱱��Ⲿ�ʡA��PAUSE�Y�i�Ȱ�", "Introduction",
+				JOptionPane.showMessageDialog(null, "Use left and right arrow keys to control the player."
+						+ "\n you can pause the game with pause button.", "Introduction",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else if (arg0.getSource() == btnClearRecord) {
-			int option = JOptionPane.showConfirmDialog(null, "�T�w�n�R�����Ƭ�����?�|�����k�s��", "ClearRecord",
+			int option = JOptionPane.showConfirmDialog(null, "you sure you want to clear the record?", "ClearRecord",
 					JOptionPane.YES_NO_OPTION);
 			if (option == 0) {
 				// �M���ثe����
 				if (highscores.delete()) {
-					JOptionPane.showMessageDialog(null, "�����w�R��!", "ClearRecord", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "score deleted!", "ClearRecord", JOptionPane.INFORMATION_MESSAGE);
 
 					bestLevel = 0;
 					if(! name.equals("Guest")) {
@@ -237,7 +239,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 						lblRecord2.setText("             0" + "by Guest " );
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "�����R��", "Regret", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "score still there!", "Regret", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		} else if (arg0.getSource() == btnPlay) {
@@ -284,10 +286,10 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			lives = 12;
 			lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 			lblscore.setText("" + level);
-			menu.setEnabled(false);
+			//menu.setEnabled(false);
 			repaint();
 		} else if (arg0.getSource() == btnExit) {
-			int option = JOptionPane.showConfirmDialog(null, "�T�w�n�h�X�C����?", "DownTheStairs", JOptionPane.YES_NO_OPTION);
+			int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit??", "DownTheStairs", JOptionPane.YES_NO_OPTION);
 			if (option == 0) {
 				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 				//System.exit(0);
@@ -309,8 +311,8 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 				}
 			}
 			seconds++;
-			if (seconds == 1) {
-				platformTimer = new Timer(3, this);// �a�j�ܴ��W�v
+			if (seconds == 10) {
+				platformTimer = new Timer(5, this);// �a�j�ܴ��W�v
 				platformTimer.restart();
 			}
 			if (seconds % 500 == 0 && seconds != 0) {
@@ -503,20 +505,20 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 				usernew.setName(name);
 				usernew.setScore(bestLevel);
 				jdbc.score(usernew);
-				JOptionPane.showMessageDialog(null, "����!�A�F��s����" + level + "��!", "Congrates!",
+				JOptionPane.showMessageDialog(null, "Congratulations! You have set a new record of "+ level +" levels!", "Congrates!",
 						JOptionPane.INFORMATION_MESSAGE);
 
 			// �g�J�̨αo���H�Ϊ��a�W��
 				JOptionPane.showMessageDialog(null,
-						"��Ƥw�Q�x�s!", "Finished!", JOptionPane.INFORMATION_MESSAGE);
+						"Data has been saved!", "Finished!", JOptionPane.INFORMATION_MESSAGE);
 				lblRecord2.setText("     " + bestLevel + " by " + name);
 			}else {
-				JOptionPane.showMessageDialog(null, "�A�o��F" + level + " ��!",
+				JOptionPane.showMessageDialog(null, "You have set a new record of " + level + " levels!",
 						  "Your level", JOptionPane.INFORMATION_MESSAGE);
 				lblRecord2.setText("     " + bestLevel + " by Guest" );
 			}
 			btnPlay.setEnabled(true);
-			menu.setEnabled(false);
+			//menu.setEnabled(false);
 		}
 	}
 }
