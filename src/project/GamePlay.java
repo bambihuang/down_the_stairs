@@ -23,7 +23,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 	private static String name = "";
 	//private String line = "";
 	private JFrame frame = new JFrame();
-
+	Music2 music=new Music2();
 	JDBC_test2 jdbc = new JDBC_test2();
 
 	/*
@@ -32,7 +32,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 
 	public GamePlay(User loginuser) {
 		this.name = loginuser.getName();
-
+		this.music.playSound();
 		// lives
 		lblLives = new JLabel();
 		lblLives.setPreferredSize(new Dimension(140, 85));
