@@ -13,9 +13,9 @@ public class MainFrame {
 	private int panel;
 	
 	// 遊戲的主視窗
-	MainFrame(int panel) {
+	MainFrame(int panel, User user) {
 		initFont();
-		initFrame();
+		initFrame(user);
 		setPanel(panel); // 設定欲顯示的子面板
 		showPanel(); // 顯示對應子面板
 	}
@@ -32,14 +32,14 @@ public class MainFrame {
 		return panel;
 	}
 	
-	private void initFrame() { // 建立所有子面板及主視窗
+	private void initFrame(User user) { // 建立所有子面板及主視窗
 		if (mainPanel == null) {
 			cLayout = new CardLayout();
 			mainPanel = new JPanel(cLayout);
 			mainPanel.setSize(600, 600);
 			LogInPanel login = new LogInPanel();
 			mainPanel.add(login,"login");
-			MenuPanel menu = new MenuPanel();
+			MenuPanel menu = new MenuPanel(user);
 			mainPanel.add(menu,"menu");
 			GamePanel game = new GamePanel();
 			mainPanel.add(game,"game");

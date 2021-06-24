@@ -85,7 +85,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 			new MessageBoard();
 		else if (evt.getSource() == jbutton_logout)
 			// TODO:show an optionpane to ask if player is logout or not
-			new MainFrame(1);
+			new MainFrame(1,usern);
 		else if (evt.getSource() == jbutton_quit)
 			// TODO:show a optionpane to ask if player is exit or not
 			System.exit(0);

@@ -19,6 +19,7 @@ public class LogInPanel extends JPanel implements ActionListener {
 	private JPasswordField passwordField;
 	private JButton login, signup, guestLogin;
 	private String acc;
+	private User user = new User();
 	
 	LogInPanel() {
 		accountLabel = new JLabel("ACCOUNT");
@@ -89,7 +90,6 @@ public class LogInPanel extends JPanel implements ActionListener {
 		acc = accountArea.getText();
 		
 		if (!acc.equals("")) {// 先確認是否有輸入帳號
-			User user = new User();
 			user.setName(acc);
 	        user.setPassword(new String(passwordField.getPassword()));
 			User loginuser = jdbc2.login(user);
@@ -112,7 +112,6 @@ public class LogInPanel extends JPanel implements ActionListener {
 		acc = accountArea.getText();
 		
 		if (!acc.equals("")) {//確定是否輸入帳號
-			User user = new User();
 			user.setName(acc);
 	        user.setPassword(new String(passwordField.getPassword()));
 			
@@ -149,7 +148,7 @@ public class LogInPanel extends JPanel implements ActionListener {
 		accountArea.setText("");
 		passwordField.setText("");
 		
-		new MainFrame(2);
+		new MainFrame(2, user);
 	}
 	
 }
