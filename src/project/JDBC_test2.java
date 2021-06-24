@@ -1,9 +1,6 @@
 package project;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.UUID;
 
 public class JDBC_test2 {
 	// JDBC driver name and database URL
@@ -16,6 +13,7 @@ public class JDBC_test2 {
 
 	
     private final static String select = "select * from user where username = ?";
+    private final static String selectAll = "select username, score from user order by score desc";
 	private final static String insert = "insert into user(username,password) values(?,?)";
 	private final static String update = "update user set score = ? where username = ?";
 	
@@ -153,6 +151,40 @@ public class JDBC_test2 {
 		}finally{
 			try{
 				if(prestmt!=null)	conn.close();
+			}catch(SQLException se){}
+			try{
+				if(conn!=null)	conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+	}
+
+	public String getRanking() {
+		String result = "";
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			
+			stmt = conn.createStatement();
+			ResultSet resultset = stmt.executeQuery(selectAll);
+
+			while (resultset.next()) {
+				result += resultset.getString("username") + ",";
+				result += resultset.getInt("score") + ";";
+			}
+			
+            return  result;
+		}catch(SQLException se){
+			se.printStackTrace();
+            return  result;
+
+		}catch(Exception e){
+			e.printStackTrace();
+            return  result;
+		}finally{
+			try{
+				if(stmt!=null)	conn.close();
 			}catch(SQLException se){}
 			try{
 				if(conn!=null)	conn.close();

@@ -4,12 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class RankingBoard {
 
@@ -75,14 +71,12 @@ public class RankingBoard {
 		boardPanel.setLayout(new BoxLayout(boardPanel, BoxLayout.Y_AXIS));
 		boardPanel.setBackground(Color.black);
 
-		// ask mysql to get ranking data
-		mc.connectMysql(mc.selectRanking);
-		String data = mc.getData();
+		// get all players' scores
+		JDBC_test2 jdbc = new JDBC_test2();
+		String data = jdbc.getRanking();
 		String[] ranking = data.split(";");
 		rowcount = ranking.length;
 		message = new RankingRow[rowcount];
-
-		// save mysql data into collector msgArray
 		for (int i = 0; i < rowcount; i++) {
 			String[] rankcol = ranking[i].split(",");
 			message[i] = new RankingRow();
