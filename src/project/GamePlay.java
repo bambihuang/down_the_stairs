@@ -55,7 +55,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		lblscore.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// title
-		// ±Nlabel¸m´«¦¨¹Ï¤ù¦Ó«D­ì¥ýªº¤å¦r
+		// ï¿½Nlabelï¿½mï¿½ï¿½ï¿½ï¿½ï¿½Ï¤ï¿½ï¿½Ó«Dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½r
 		Color c1 = new Color(122, 122, 122);
 		JLabel lblTitle = new JLabel();
 		lblTitle = new JLabel();
@@ -200,12 +200,12 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		if (arg0.getSource() == btnPause) {
 			if (start) {
-				// ¹CÀ¸¤¤«ö¤UpauseÁä
+				// ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Upauseï¿½ï¿½
 				if (!pause) {
 					pause = true;
 					gameTimer.stop();
 					platformTimer.stop();
-					JOptionPane.showMessageDialog(null, "ºÉ¥i¯à¤U¨ì¶V¦h¼Ó¼h¡A­nÄ~Äò½Ð«öpause¡C", "DownTheStairs",
+					JOptionPane.showMessageDialog(null, "ï¿½É¥iï¿½ï¿½Uï¿½ï¿½Vï¿½hï¿½Ó¼hï¿½Aï¿½nï¿½~ï¿½ï¿½Ð«ï¿½pauseï¿½C", "DownTheStairs",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					pause = false;
@@ -213,17 +213,17 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 					platformTimer.start();
 				}
 			} else {
-				// ¹CÀ¸©|¥¼¶}©l®É«ö¤UpauseÁä
-				JOptionPane.showMessageDialog(null, "§Q¥Î¥ª¥k¤è¦VÁä±±¨î¨¤¦â²¾°Ê¡A«öPAUSE§Y¥i¼È°±", "Introduction",
+				// ï¿½Cï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½}ï¿½lï¿½É«ï¿½ï¿½Upauseï¿½ï¿½
+				JOptionPane.showMessageDialog(null, "ï¿½Qï¿½Î¥ï¿½ï¿½kï¿½ï¿½Vï¿½ä±±ï¿½î¨¤ï¿½â²¾ï¿½Ê¡Aï¿½ï¿½PAUSEï¿½Yï¿½iï¿½È°ï¿½", "Introduction",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else if (arg0.getSource() == btnClearRecord) {
-			int option = JOptionPane.showConfirmDialog(null, "½T©w­n§R°£¤À¼Æ¬ö¿ý¶Ü?·|ª½±µÂk¹s³á", "ClearRecord",
+			int option = JOptionPane.showConfirmDialog(null, "ï¿½Tï¿½wï¿½nï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½kï¿½sï¿½ï¿½", "ClearRecord",
 					JOptionPane.YES_NO_OPTION);
 			if (option == 0) {
-				// ²M°£¥Ø«e¬ö¿ý
+				// ï¿½Mï¿½ï¿½ï¿½Ø«eï¿½ï¿½ï¿½ï¿½
 				if (highscores.delete()) {
-					JOptionPane.showMessageDialog(null, "¬ö¿ý¤w§R°£!", "ClearRecord", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½Rï¿½ï¿½!", "ClearRecord", JOptionPane.INFORMATION_MESSAGE);
 
 					bestLevel = 0;
 					if(! name.equals("Guest")) {
@@ -237,7 +237,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 						lblRecord2.setText("             0" + "by Guest " );
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "¨ú®ø§R°£", "Regret", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½", "Regret", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		} else if (arg0.getSource() == btnPlay) {
@@ -247,7 +247,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			//btnPlay.setEnabled(false);
 			start = true;
 			p = new player();
-			// ªì©l¤Æ¦a¿j
+			// ï¿½ï¿½lï¿½Æ¦aï¿½j
 			platforms = new Platform[7];
 			for (int i = 0; i < platforms.length; i++) {
 				int n = rnd.nextInt(5);
@@ -275,7 +275,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 
 				platforms[i].setY(250 + i * 60);
 			}
-			// ¨¤¦âªº°_©l¦ì¸m
+			// ï¿½ï¿½ï¿½âªºï¿½_ï¿½lï¿½ï¿½m
 			platforms[3] = new NormalPlatform();
 			platforms[3].setLocation(260, 225);
 			gameTimer.restart();
@@ -287,7 +287,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			menu.setEnabled(false);
 			repaint();
 		} else if (arg0.getSource() == btnExit) {
-			int option = JOptionPane.showConfirmDialog(null, "½T©w­n°h¥X¹CÀ¸¶Ü?", "DownTheStairs", JOptionPane.YES_NO_OPTION);
+			int option = JOptionPane.showConfirmDialog(null, "ï¿½Tï¿½wï¿½nï¿½hï¿½Xï¿½Cï¿½ï¿½ï¿½ï¿½?", "DownTheStairs", JOptionPane.YES_NO_OPTION);
 			if (option == 0) {
 				System.exit(0);
 			}
@@ -308,15 +308,15 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			}
 			seconds++;
 			if (seconds == 1) {
-				platformTimer = new Timer(3, this);// ¦a¿jÅÜ´«ÀW²v
+				platformTimer = new Timer(3, this);// ï¿½aï¿½jï¿½Ü´ï¿½ï¿½Wï¿½v
 				platformTimer.restart();
 			}
 			if (seconds % 500 == 0 && seconds != 0) {
-				// ¤@¬q®É¶¡¼W¥[¤À¼Æ
+				// ï¿½@ï¿½qï¿½É¶ï¿½ï¿½Wï¿½[ï¿½ï¿½ï¿½ï¿½
 				level += 10;
 				lblscore.setText("" + level);
 			}
-			// ·íª±®a¨S¦³¯¸¦b¥ô¦ó¦a¿j«ùÄò¼Y¸¨
+			// ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½bï¿½ï¿½ï¿½ï¿½aï¿½jï¿½ï¿½ï¿½ï¿½Yï¿½ï¿½
 			if (!(p.getRectBottom().intersects(platforms[0].getRect()))
 					&& !(p.getRectBottom().intersects(platforms[1].getRect()))
 					&& !(p.getRectBottom().intersects(platforms[2].getRect()))
@@ -326,7 +326,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 					&& !(p.getRectBottom().intersects(platforms[6].getRect()))) {
 				p.move(seconds);
 			}
-			// ·íª±®a¯¸¦b¦a¿j¤W´NÀH¦a±M©¹¤W²¾°Ê
+			// ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½bï¿½aï¿½jï¿½Wï¿½Nï¿½Hï¿½aï¿½Mï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½
 			if (p.getRectBottom().intersects(platforms[0].getRect())
 					|| p.getRectBottom().intersects(platforms[1].getRect())
 					|| p.getRectBottom().intersects(platforms[2].getRect())
@@ -343,7 +343,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			for (int i = 0; i < platforms.length; i++) {
 				platforms[i].move(seconds);
 				checkCollision();
-				// ·í¤@­Ó¦a¿j¶W¥Xµe­±´N·s¼W¤@­Ó¦a¿j
+				// ï¿½ï¿½ï¿½@ï¿½Ó¦aï¿½jï¿½Wï¿½Xï¿½eï¿½ï¿½ï¿½Nï¿½sï¿½Wï¿½@ï¿½Ó¦aï¿½j
 				if (platforms[i].getY() == 0 - platforms[i].getHeight()) {
 					int n = rnd.nextInt(5);
 					if (n == 0) {
@@ -374,7 +374,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 	}
 
 	@Override
-	// «öÁä±±¨îKeyPressed¡BKeyTyped¡BKeyReleased
+	// ï¿½ï¿½ï¿½ä±±ï¿½ï¿½KeyPressedï¿½BKeyTypedï¿½BKeyReleased
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (start) {
@@ -385,7 +385,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 				p.setDirection(player.EAST);
 				moveRight = true;
 			} else if (e.getKeyCode() == KeyEvent.VK_P) {
-				// ª±®a«öp ¹CÀ¸¼È°±
+				// ï¿½ï¿½ï¿½aï¿½ï¿½p ï¿½Cï¿½ï¿½ï¿½È°ï¿½
 				if (!pause) {
 					pause = true;
 					gameTimer.stop();
@@ -417,7 +417,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void checkCollision() {
-		// ª±®a¼²¨ì¤W¤èªº¦©¦å¦y¨ë
+		// ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½Wï¿½èªºï¿½ï¿½ï¿½ï¿½yï¿½ï¿½
 		if (p.getRectTop().intersects(ts.getRect())) {
 			lives -= 2;
 			lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
@@ -428,18 +428,18 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			p.setY(p.getY() + 40);
 			btnPlay.setEnabled(true);
 		}
-		// ª±®a¸I¨ì¦a¿j
+		// ï¿½ï¿½ï¿½aï¿½Iï¿½ï¿½aï¿½j
 		for (int i = 0; i < platforms.length; i++) {
 			if (platforms[i].getRect().intersects(p.getRectBottom())) {
 				if (platforms[i].getType().equals("normal") && lives < 12) {
-					// ª±®a¨C¸I¨ì¤@­Ónormal¦a¿j¬Ò¥i¥[¦^¤@ºw¦å
+					// ï¿½ï¿½ï¿½aï¿½Cï¿½Iï¿½ï¿½@ï¿½ï¿½normalï¿½aï¿½jï¿½Ò¥iï¿½[ï¿½^ï¿½@ï¿½wï¿½ï¿½
 					if (platformPlayerIsOn != i) {
 						lives++;
 					}
 					platformPlayerIsOn = i;
 					lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 				} else if (platforms[i].getType().equals("spike")) {
-					// ª±®a¸I¨ìspike¦a¶ô¦©¦å
+					// ï¿½ï¿½ï¿½aï¿½Iï¿½ï¿½spikeï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					if (platformPlayerIsOn != i) {
 						p.isInjured = true;
 						s = seconds + 40;
@@ -448,10 +448,10 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 						if (lives <= 0) {
 							lblLives.setIcon(new ImageIcon("img/lives0.png"));
 							endGame();
-						} // ¦å¦©§¹«h¹CÀ¸µ²§ô
+						} // ï¿½å¦©ï¿½ï¿½ï¿½hï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						platformPlayerIsOn = i;
 					}
-					// ¸I¨ìSPIKEª±®a¹Ï¥Ü¤Á´«¬°¦©¦åª¬ºA
+					// ï¿½Iï¿½ï¿½SPIKEï¿½ï¿½ï¿½aï¿½Ï¥Ü¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½åª¬ï¿½A
 					if (s - seconds < 10) {
 						p.isInjured = false;
 					}
@@ -467,7 +467,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 
 						lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 					}
-					// ¦a¶ô®ø¥¢¡Aª±®a¤U¼Y
+					// ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½aï¿½Uï¿½Y
 					if (s - seconds < 10) {
 						p.setY(p.getY() + 5);
 						platforms[i].imgPlatform = new ImageIcon("");
@@ -489,10 +489,10 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		platformTimer.stop();
 		gameTimer.stop();
 		/*
-		 * if (level != 0) { JOptionPane.showMessageDialog(null, "§A±o¨ì¤F" + level + " ¤À!",
+		 * if (level != 0) { JOptionPane.showMessageDialog(null, "ï¿½Aï¿½oï¿½ï¿½F" + level + " ï¿½ï¿½!",
 		 * "Your level", JOptionPane.INFORMATION_MESSAGE); }
 		 */
-		// ª±®a¥´¯}³Ì°ª¬ö¿ý
+		// ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½}ï¿½Ì°ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (level > bestLevel) {
 			bestLevel = level;
 			if(!name.equals("Guest")) {
@@ -501,15 +501,15 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 				usernew.setName(name);
 				usernew.setScore(bestLevel);
 				jdbc.score(usernew);
-				JOptionPane.showMessageDialog(null, "®¥³ß!§A¹F¨ì·s¬ö¿ý" + level + "¤À!", "Congrates!",
+				JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½!ï¿½Aï¿½Fï¿½ï¿½sï¿½ï¿½ï¿½ï¿½" + level + "ï¿½ï¿½!", "Congrates!",
 						JOptionPane.INFORMATION_MESSAGE);
 
-			// ¼g¤J³Ì¨Î±o¤À¥H¤Îª±®a¦WºÙ
+			// ï¿½gï¿½Jï¿½Ì¨Î±oï¿½ï¿½ï¿½Hï¿½Îªï¿½ï¿½aï¿½Wï¿½ï¿½
 				JOptionPane.showMessageDialog(null,
-						"¸ê®Æ¤w³QÀx¦s!", "Finished!", JOptionPane.INFORMATION_MESSAGE);
+						"ï¿½ï¿½Æ¤wï¿½Qï¿½xï¿½s!", "Finished!", JOptionPane.INFORMATION_MESSAGE);
 				lblRecord2.setText("     " + bestLevel + " by " + name);
 			}else {
-				JOptionPane.showMessageDialog(null, "§A±o¨ì¤F" + level + " ¤À!",
+				JOptionPane.showMessageDialog(null, "ï¿½Aï¿½oï¿½ï¿½F" + level + " ï¿½ï¿½!",
 						  "Your level", JOptionPane.INFORMATION_MESSAGE);
 				lblRecord2.setText("     " + bestLevel + " by Guest" );
 			}
