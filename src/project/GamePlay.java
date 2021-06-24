@@ -12,6 +12,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 	private JButton btnPause, btnPlay, btnExit, btnClearRecord, btnrecord;
 	private int level = 0, lives = 12, seconds = 0, bestLevel = 0, s = 0, platformPlayerIsOn = -1;
 	private player p;
+	private JMenu menu;
 	private boolean start = false, moveRight = false, moveLeft = false, pause = false;
 	private Timer gameTimer, platformTimer;
 	private Platform[] platforms;
@@ -107,7 +108,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		btnPause.setFocusable(false);
 		btnPause.addActionListener(this);
 
-		String pathPlay = "img/play.png";
+		String pathPlay = "img/goplay.png";
 		btnPlay = new JButton(pathPlay);
 		Icon iconPlay = new ImageIcon(pathPlay);
 		btnPlay = new JButton(iconPlay);
@@ -116,7 +117,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		btnPlay.setFocusable(false);
 		btnPlay.addActionListener(this);
 
-		String pathExit = "img/exit.png";
+		String pathExit = "img/back.png";
 		btnExit = new JButton(pathExit);
 		Icon iconExit = new ImageIcon(pathExit);
 		btnExit = new JButton(iconExit);
@@ -283,6 +284,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			lives = 12;
 			lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 			lblscore.setText("" + level);
+			menu.setEnabled(false);
 			repaint();
 		} else if (arg0.getSource() == btnExit) {
 			int option = JOptionPane.showConfirmDialog(null, "確定要退出遊戲嗎?", "DownTheStairs", JOptionPane.YES_NO_OPTION);
@@ -508,12 +510,12 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 				lblRecord2.setText("     " + bestLevel + " by " + name);
 			}else {
 				JOptionPane.showMessageDialog(null, "你得到了" + level + " 分!",
-						 * "Your level", JOptionPane.INFORMATION_MESSAGE)
+						  "Your level", JOptionPane.INFORMATION_MESSAGE);
 				lblRecord2.setText("     " + bestLevel + " by Guest" );
 			}
 			
 			btnPlay.setEnabled(true);
-			
+			menu.setEnabled(false);
 		}
 	}
 }
