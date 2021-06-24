@@ -22,6 +22,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 	private File highscores = new File("highscores.txt");
 	private static String name = "";
 	//private String line = "";
+	private JFrame frame = new JFrame();
 
 	JDBC_test2 jdbc = new JDBC_test2();
 
@@ -169,12 +170,11 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		Color cframe = new Color(89, 186, 145);
 		setBorder(BorderFactory.createLineBorder(cframe, 6));
 		addKeyListener(this);
-		JFrame frame = new JFrame();
 		frame.add(topPanel, BorderLayout.NORTH);
 		frame.add(rightPanel, BorderLayout.EAST);
 		frame.add(this, BorderLayout.CENTER);
 		frame.setTitle("Down The Stairs");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setSize(760, 709);
 		frame.setLocationRelativeTo(null);
@@ -289,7 +289,9 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		} else if (arg0.getSource() == btnExit) {
 			int option = JOptionPane.showConfirmDialog(null, "確定要退出遊戲嗎?", "DownTheStairs", JOptionPane.YES_NO_OPTION);
 			if (option == 0) {
-				System.exit(0);
+				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+				//System.exit(0);
+				
 			}
 		}
 		if (arg0.getSource() == gameTimer) {
@@ -513,7 +515,6 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 						  "Your level", JOptionPane.INFORMATION_MESSAGE);
 				lblRecord2.setText("     " + bestLevel + " by Guest" );
 			}
-			
 			btnPlay.setEnabled(true);
 			menu.setEnabled(false);
 		}
