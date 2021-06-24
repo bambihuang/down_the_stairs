@@ -71,10 +71,9 @@ public class RankingBoard {
 		boardPanel.setLayout(new BoxLayout(boardPanel, BoxLayout.Y_AXIS));
 		boardPanel.setBackground(Color.black);
 
-		// 取得資料庫所有玩家分數排名
+		// get all players' scores
 		JDBC_test2 jdbc = new JDBC_test2();
 		String data = jdbc.getRanking();
-		// 排名資料處理
 		String[] ranking = data.split(";");
 		rowcount = ranking.length;
 		message = new RankingRow[rowcount];

@@ -3,6 +3,8 @@ package project;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+
 import javax.swing.*;
 
 /*
@@ -86,8 +88,12 @@ public class MenuPanel extends JPanel implements ActionListener {
 		else if (evt.getSource() == jbutton_logout)
 			// TODO:show an optionpane to ask if player is logout or not
 			new MainFrame(1,usern);
-		else if (evt.getSource() == jbutton_quit)
-			// TODO:show a optionpane to ask if player is exit or not
-			System.exit(0);
+		else if (evt.getSource() == jbutton_quit) {
+			int option = JOptionPane.showConfirmDialog(null, "確定要退出遊戲嗎?", "DownTheStairs", JOptionPane.YES_NO_OPTION);
+			if (option == 0) {
+				System.exit(0);
+				
+			}
+		}
 	}
 }
