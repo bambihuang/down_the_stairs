@@ -137,7 +137,6 @@ public class LogInPanel extends JPanel implements ActionListener {
 
 	// 以遊客身份進入遊戲
 	private void guestLogin() {
-		User user = new User();
 		user.setName("Guest");
 		
 		switchToMenu();
