@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -22,7 +21,7 @@ public class MessageBoard {
 
 	    Message(int n) {
 	    	content.setLineWrap(true); // ´«¦æ
-	    	content.setFont(new Font("Calibri", Font.BOLD, 16));
+	    	content.setFont(new Font("NotoSansCJK", Font.BOLD, 16));
 	    	content.setForeground(Color.white);
 	    	content.setBackground(Color.black);
 	    	content.setEditable(false);
@@ -80,13 +79,16 @@ public class MessageBoard {
     BoxLayout box;
     JTextArea writeMsg = new JTextArea();
 	JButton send;
-	int count = 0;
-	Message message[] = new Message[count];
+	int rowcount = 0;
+	Message message[];
 	Border border = BorderFactory.createLineBorder(Color.gray);
 	ArrayList<Message> msgArray = new ArrayList<>();
 	MysqlConnector mc = new MysqlConnector(MysqlConnector.MESSAGETABLE);
+	private JDBC_test2 jdbc = new JDBC_test2();
+	User user;
 	
-	MessageBoard() {
+	MessageBoard(User user) {
+		this.user = user;
 		createAndShowGUI();
 	}
 	
@@ -96,7 +98,7 @@ public class MessageBoard {
 		writePanel.setBackground(Color.black);
 
 		writeMsg.setLineWrap(true); // ´«¦æ
-		writeMsg.setFont(new Font("Pixelony", Font.TRUETYPE_FONT, 16));
+		writeMsg.setFont(new Font("NotoSansCJK", Font.TRUETYPE_FONT, 16));
 		writeMsg.setForeground(Color.white);
 		writeMsg.setBackground(Color.black);
 		
@@ -122,10 +124,6 @@ public class MessageBoard {
         boardPanel.setBackground(Color.black);
         
         
-        for (int i=0 ; i < count ; i++) {
-        	message[i] = new Message(i+1);
-        	msgArray.add(0, message[i]);
-        }
         
         addComponentToBoardPanel();
 
@@ -143,7 +141,16 @@ public class MessageBoard {
     }
 	
 	private void getTableData() {
-		mc.connectMysql(mc.selectAllMessage);
+		String data = jdbc.getAllMessage();
+        String[] messages = data.split(";");
+		rowcount = messages.length;
+        message = new Message[rowcount];
+        for (int i=0 ; i < rowcount ; i++) {
+        	String[] msgrow = messages[i].split(",");
+        	message[i] = new Message(i+1);
+        	message[i].setText(msgrow[0], msgrow[1], msgrow[2]);
+        	msgArray.add(0, message[i]);
+        }
 	}
 	
 	private String getCurrentTime() {
@@ -153,24 +160,24 @@ public class MessageBoard {
 	}
 	
 	private void addComponentToBoardPanel() {
+		getTableData();
 		boardPanel.add(writePanel);
         
-        for (int i=0 ; i < count ; i++) {
+        for (int i=0 ; i < rowcount ; i++) {
         	boardPanel.add(msgArray.get(i));
         }
 	}
 	
 	
 	private void writeNewMsg() {
-		//mc.player = player;
-		//mc.message = newMsg;
-		//mc.timestamp = timestamp;
 		if (!writeMsg.getText().equals("")) {
-			count++;
+			rowcount++;
+			jdbc.addNewMessage(rowcount, user, writeMsg.getText(), getCurrentTime());
+			/*count++;
 			Message newMsg = new Message(count);
 			newMsg.setText(writeMsg.getText(), "player1", getCurrentTime());
 			writeMsg.setText(null);
-			msgArray.add(0, newMsg);
+			msgArray.add(0, newMsg);*/
 	        refresh();
 		}
 	}
@@ -183,7 +190,7 @@ public class MessageBoard {
 	}
 	
 	public static void main(String[] args) {
-		new MessageBoard();
+		User user = new User();
+		new MessageBoard(user);
 	}
-
 }

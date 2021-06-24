@@ -68,6 +68,6 @@ public class GameOverPanel extends JPanel implements ActionListener {
 		else if (evt.getSource() == jbutton_ranking)
 			new RankingBoard();
 		else if (evt.getSource() == jbutton_messageboard)
-			new MessageBoard();
+			new MessageBoard(new User());
 	}
 }
