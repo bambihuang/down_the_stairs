@@ -13,7 +13,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 	private int level = 0, lives = 12, seconds = 0, bestLevel = 0, s = 0, platformPlayerIsOn = -1;
 	private player p;
 	//private JMenu menu;
-	private boolean start = false, moveRight = false, moveLeft = false, pause = false;
+	private boolean newGame = false, start = false, moveRight = false, moveLeft = false, pause = false;
 	private Timer gameTimer, platformTimer;
 	private Platform[] platforms;
 	private Random rnd;
@@ -248,52 +248,62 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			moveLeft = false;
 			//btnPlay.setEnabled(false);
 			start = true;
-			p = new player();
-			if (start) {
+			if (!newGame) {
+				p = new player();
+				newGame = true;
+				// 初始化地磚
+				platforms = new Platform[7];
+				for (int i = 0; i < platforms.length; i++) {
+					int n = rnd.nextInt(5);
+					if (n == 0) {
+						platforms[i] = new NormalPlatform();
+					} else if (n == 1) {
+						platforms[i] = new SpikePlatform();
+					} else if (n == 2) {
+						int m = rnd.nextInt(2);
+						if (m == 0) {
+							platforms[i] = new NormalPlatform();
+						} else {
+							platforms[i] = new SpikePlatform();
+						}
+					} else if (n == 3) {
+						int m = rnd.nextInt(2);
+						if (m == 0) {
+							platforms[i] = new NormalPlatform();
+						} else {
+							platforms[i] = new SpikePlatform();
+						}
+					} else if (n == 4) {
+						platforms[i] = new TempPlatform();
+					}
+
+					platforms[i].setY(250 + i * 60);
+				}
+				// 角色的起始位置
+				platforms[3] = new NormalPlatform();
+				platforms[3].setLocation(260, 225);
+				gameTimer.restart();
+				seconds = 0;
+				level = 0;
+				lives = 12;
+				lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
+				lblscore.setText("" + level);
+				//menu.setEnabled(false);
+				repaint();
+				music.playSound();
+			} else if (pause) {
+				pause = false;
+				gameTimer.start();
+				platformTimer.start();
+				music.playSound();
+			}
+			/*if (start) {
 				music.stopSound();
 				music.playSound();
 			}else {
 				music.playSound();
-			}
-			// 初始化地磚
-			platforms = new Platform[7];
-			for (int i = 0; i < platforms.length; i++) {
-				int n = rnd.nextInt(5);
-				if (n == 0) {
-					platforms[i] = new NormalPlatform();
-				} else if (n == 1) {
-					platforms[i] = new SpikePlatform();
-				} else if (n == 2) {
-					int m = rnd.nextInt(2);
-					if (m == 0) {
-						platforms[i] = new NormalPlatform();
-					} else {
-						platforms[i] = new SpikePlatform();
-					}
-				} else if (n == 3) {
-					int m = rnd.nextInt(2);
-					if (m == 0) {
-						platforms[i] = new NormalPlatform();
-					} else {
-						platforms[i] = new SpikePlatform();
-					}
-				} else if (n == 4) {
-					platforms[i] = new TempPlatform();
-				}
-
-				platforms[i].setY(250 + i * 60);
-			}
-			// 角色的起始位置
-			platforms[3] = new NormalPlatform();
-			platforms[3].setLocation(260, 225);
-			gameTimer.restart();
-			seconds = 0;
-			level = 0;
-			lives = 12;
-			lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
-			lblscore.setText("" + level);
-			//menu.setEnabled(false);
-			repaint();
+			}*/
+			
 		} else if (arg0.getSource() == btnExit) {
 			int option = JOptionPane.showConfirmDialog(null, "確定要退出遊戲嗎?", "DownTheStairs", JOptionPane.YES_NO_OPTION);
 			if (option == 0) {
@@ -493,6 +503,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 
 	public void endGame() {
 		start = false;
+		newGame = false;
 		p.setY(530);
 		for (int j = 0; j < platforms.length; j++) {
 			platforms[j].setY(550);

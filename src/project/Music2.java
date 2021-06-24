@@ -8,7 +8,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 public class Music2 {
-	private static Clip clip;
+	public static Clip clip;
 	
 	public static void playSound() {
 		
@@ -37,7 +37,7 @@ public class Music2 {
 		}
 	}
 
-	public void stopSound() {
+	public static void stopSound() {
 
 		try {
 			clip.getMicrosecondPosition();
