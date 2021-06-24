@@ -37,7 +37,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		lblLives = new JLabel();
 		lblLives.setPreferredSize(new Dimension(140, 85));
 		lblLives.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLives.setIcon(new ImageIcon("images\\lives" + lives + ".png"));
+		lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 
 		// level
 		lblLevel = new JLabel();
@@ -227,12 +227,16 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 					JOptionPane.showMessageDialog(null, "紀錄已刪除!", "ClearRecord", JOptionPane.INFORMATION_MESSAGE);
 
 					bestLevel = 0;
-					JDBC_test2 jdbc = new JDBC_test2();
-					User usernew = new User();
-					usernew.setName(name);
-					usernew.setScore(bestLevel);
-					jdbc.score(usernew);
-					lblRecord2.setText("             0" + "by" + name);
+					if(! name.equals("Guest")) {
+						JDBC_test2 jdbc = new JDBC_test2();
+						User usernew = new User();
+						usernew.setName(name);
+						usernew.setScore(bestLevel);
+						jdbc.score(usernew);
+						lblRecord2.setText("             0" + "by" + name);
+					}else {
+						lblRecord2.setText("             0" + "by Guest " );
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "取消刪除", "Regret", JOptionPane.ERROR_MESSAGE);
 				}
@@ -279,7 +283,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			seconds = 0;
 			level = 0;
 			lives = 12;
-			lblLives.setIcon(new ImageIcon("images\\lives" + lives + ".png"));
+			lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 			lblscore.setText("" + level);
 			menu.setEnabled(false);
 			repaint();
@@ -417,9 +421,9 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		// 玩家撞到上方的扣血尖刺
 		if (p.getRectTop().intersects(ts.getRect())) {
 			lives -= 2;
-			lblLives.setIcon(new ImageIcon("images\\lives" + lives + ".png"));
+			lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 			if (lives <= 0) {
-				lblLives.setIcon(new ImageIcon("images\\lives0.png"));
+				lblLives.setIcon(new ImageIcon("img/lives0.png"));
 				endGame();
 			}
 			p.setY(p.getY() + 40);
@@ -434,16 +438,16 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 						lives++;
 					}
 					platformPlayerIsOn = i;
-					lblLives.setIcon(new ImageIcon("images\\lives" + lives + ".png"));
+					lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 				} else if (platforms[i].getType().equals("spike")) {
 					// 玩家碰到spike地塊扣血
 					if (platformPlayerIsOn != i) {
 						p.isInjured = true;
 						s = seconds + 40;
 						lives -= 2;
-						lblLives.setIcon(new ImageIcon("images\\lives" + lives + ".png"));
+						lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 						if (lives <= 0) {
-							lblLives.setIcon(new ImageIcon("images\\lives0.png"));
+							lblLives.setIcon(new ImageIcon("img/lives0.png"));
 							endGame();
 						} // 血扣完則遊戲結束
 						platformPlayerIsOn = i;
@@ -462,7 +466,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 							lives++;
 						}
 
-						lblLives.setIcon(new ImageIcon("images\\lives" + lives + ".png"));
+						lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 					}
 					// 地塊消失，玩家下墜
 					if (s - seconds < 10) {
@@ -492,28 +496,25 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		// 玩家打破最高紀錄
 		if (level > bestLevel) {
 			bestLevel = level;
-			JDBC_test2 jdbc = new JDBC_test2();
-			User usernew = new User();
-			usernew.setName(name);
-			usernew.setScore(bestLevel);
-			jdbc.score(usernew);
-			JOptionPane.showMessageDialog(null, "恭喜!你達到新紀錄" + level + "分!", "Congrates!",
-					JOptionPane.INFORMATION_MESSAGE);
+			if(!name.equals("Guest")) {
+				JDBC_test2 jdbc = new JDBC_test2();
+				User usernew = new User();
+				usernew.setName(name);
+				usernew.setScore(bestLevel);
+				jdbc.score(usernew);
+				JOptionPane.showMessageDialog(null, "恭喜!你達到新紀錄" + level + "分!", "Congrates!",
+						JOptionPane.INFORMATION_MESSAGE);
 
 			// 寫入最佳得分以及玩家名稱
-			try {
-				BufferedWriter out = new BufferedWriter(new FileWriter(highscores));
-				out.write(String.valueOf(bestLevel));
-				out.newLine();
-				out.write(name);
-				out.close();
 				JOptionPane.showMessageDialog(null,
 						"資料已被儲存!", "Finished!", JOptionPane.INFORMATION_MESSAGE);
-				lblRecord2.setText("     " + String.valueOf(bestLevel) + " by " + name);
-
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage() + "!", "Error", JOptionPane.ERROR_MESSAGE);
+				lblRecord2.setText("     " + bestLevel + " by " + name);
+			}else {
+				JOptionPane.showMessageDialog(null, "你得到了" + level + " 分!",
+						 * "Your level", JOptionPane.INFORMATION_MESSAGE)
+				lblRecord2.setText("     " + bestLevel + " by Guest" );
 			}
+			
 			btnPlay.setEnabled(true);
 			menu.setEnabled(true);
 		}
