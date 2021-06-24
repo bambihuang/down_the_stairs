@@ -141,6 +141,7 @@ public class MessageBoard {
     }
 	
 	private void getTableData() {
+		msgArray.clear();
 		String data = jdbc.getAllMessage();
         String[] messages = data.split(";");
 		rowcount = messages.length;
@@ -173,10 +174,10 @@ public class MessageBoard {
 		if (!writeMsg.getText().equals("")) {
 			rowcount++;
 			jdbc.addNewMessage(rowcount, user, writeMsg.getText(), getCurrentTime());
+			writeMsg.setText(null);
 			/*count++;
 			Message newMsg = new Message(count);
 			newMsg.setText(writeMsg.getText(), "player1", getCurrentTime());
-			writeMsg.setText(null);
 			msgArray.add(0, newMsg);*/
 	        refresh();
 		}

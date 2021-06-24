@@ -20,7 +20,7 @@ public class JDBC_test2 {
 	private final static String insert = "insert into user(username,password) values(?,?)";
 	private final static String update = "update user set score = ? where username = ?";
 	private final static String insertNewMessage = "INSERT INTO messageboard VALUES (?,?,?,?)";
-	private final static String selectAllMessage = "SELECT message, account, time FROM messageboard ORDER BY time DESC";
+	private final static String selectAllMessage = "SELECT message, account, time FROM messageboard ORDER BY no";
 	
 	
 	Connection conn = null;
