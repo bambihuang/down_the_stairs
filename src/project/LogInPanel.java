@@ -21,7 +21,8 @@ public class LogInPanel extends JPanel implements ActionListener {
 	private String acc;
 	private User user = new User();
 	
-	LogInPanel() {
+	LogInPanel(User user) {
+		this.user =user;
 		accountLabel = new JLabel("ACCOUNT");
 		accountLabel.setBounds(143, 120, 150, 30);
 		accountLabel.setFont(new Font("Pixelony", Font.TRUETYPE_FONT, 25));
@@ -95,7 +96,8 @@ public class LogInPanel extends JPanel implements ActionListener {
 			User loginuser = jdbc2.login(user);
 			if (loginuser.getName() != null) {// 確認資料庫有此帳號
 				if (user.getPassword().equals(loginuser.getPassword())) {// 確認密碼
-					switchToMenu();
+					user=loginuser;
+					switchToMenu(user);
 				} else {
 					JOptionPane.showMessageDialog(null, "密碼錯誤，請重新確認！", "密碼錯誤", JOptionPane.PLAIN_MESSAGE);
 				}
@@ -119,7 +121,7 @@ public class LogInPanel extends JPanel implements ActionListener {
 				if (!(passwordField.getPassword().length == 0)) {//確定是否輸入密碼	
 					if (jdbc.isAdd(user)) {
 						if (JOptionPane.showConfirmDialog(null, "註冊成功，按確認進入首頁！", "註冊成功",JOptionPane.WARNING_MESSAGE) == 0) {
-							switchToMenu();
+							switchToMenu(user);
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "你遇到了工程師也無解的問題，請重新輸入", "密碼錯誤",JOptionPane.PLAIN_MESSAGE);
@@ -139,11 +141,11 @@ public class LogInPanel extends JPanel implements ActionListener {
 	private void guestLogin() {
 		user.setName("Guest");
 		
-		switchToMenu();
+		switchToMenu(user);
 	}
 
 	// 前往遊戲選單
-	private void switchToMenu() {
+	private void switchToMenu(User user) {
 		accountArea.setText("");
 		passwordField.setText("");
 		

@@ -83,7 +83,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		btnClearRecord.addActionListener(this);
 
 		lblRecord2 = new JLabel();
-		lblRecord2.setText("             0");
+		lblRecord2.setText(" ");
 		lblRecord2.setFont(f3);
 		lblRecord2.setForeground(Color.WHITE);
 		lblRecord2.setPreferredSize(new Dimension(190, 25));
@@ -94,11 +94,11 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		lblname.setForeground(c1);
 		lblname.setPreferredSize(new Dimension(190, 25));
 		lblname.setHorizontalAlignment(SwingConstants.CENTER);
-		bestLevel = loginuser.getScore();
-		if(!name.equals("Guest")) {
-			lblRecord2.setText("     " + bestLevel + " by " + name);
-		}else {
+		bestLevel = loginuser.getScore();		
+		if(name.equals("Guest")) {
 			lblRecord2.setText("     " + 0 + " by Guest");
+		}else {
+			lblRecord2.setText("     " + bestLevel + " by " + name);
 		}
 
 		String pathHelp = "img/pause.png";

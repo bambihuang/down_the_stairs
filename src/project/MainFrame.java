@@ -38,7 +38,7 @@ public class MainFrame {
 			mainPanel.setSize(600, 600);
 		}
 		if (panel == 1 && login == null) {
-			login = new LogInPanel();
+			login = new LogInPanel(user);
 			mainPanel.add(login,"login");
 		}
 		if (panel == 2 && menu == null) {
