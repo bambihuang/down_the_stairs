@@ -1,24 +1,25 @@
+package project;
 
-import java.io.File;//增加背景音樂
+import java.io.File;//憓���璅�
 
-import javax.sound.sampled.AudioInputStream;//增加背景音樂
+import javax.sound.sampled.AudioInputStream;//憓���璅�
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 public class Music2 {
-	//private Clip clip;
+	private static Clip clip;
 	
 	public static void playSound() {
-
+		
 		try {
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("music/8bitsloop_play.wav").getAbsoluteFile());// ...moding...
-			Clip clip = AudioSystem.getClip();
+			clip = AudioSystem.getClip();
 			
 			//if(x==1) {
 				clip.open(audioInputStream);
 				clip.start();
-				//音樂音量控制
+				//�璅���
 				FloatControl gainControl = (FloatControl)
 				clip.getControl(FloatControl.Type.MASTER_GAIN);
 				gainControl.setValue(-10.0f); 
@@ -36,10 +37,10 @@ public class Music2 {
 		}
 	}
 
-	/*public void stopSound() {
+	public void stopSound() {
 
 		try {
-			this.clip.getMicrosecondPosition();
+			clip.getMicrosecondPosition();
 			clip.stop();
 			clip.close();
 
@@ -47,7 +48,7 @@ public class Music2 {
 			System.out.println("Error with playing sound.");
 			ex.printStackTrace();
 		}
-	}*/
+	}
 
 	
 }
