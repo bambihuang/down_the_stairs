@@ -12,7 +12,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 	private JButton btnPause, btnPlay, btnExit, btnClearRecord, btnrecord;
 	private int level = 0, lives = 12, seconds = 0, bestLevel = 0, s = 0, platformPlayerIsOn = -1;
 	private player p;
-	private JMenu menu;
+	//private JMenu menu;
 	private boolean start = false, moveRight = false, moveLeft = false, pause = false;
 	private Timer gameTimer, platformTimer;
 	private Platform[] platforms;
@@ -25,14 +25,14 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 	private JFrame frame = new JFrame();
 	Music2 music=new Music2();
 	JDBC_test2 jdbc = new JDBC_test2();
-
+	
 	/*
 	 * public static void main(String[] args) { new GamePlay(); }
 	 */
 
 	public GamePlay(User loginuser) {
 		this.name = loginuser.getName();
-		this.music.playSound();
+		
 		// lives
 		lblLives = new JLabel();
 		lblLives.setPreferredSize(new Dimension(140, 85));
@@ -205,12 +205,14 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 					pause = true;
 					gameTimer.stop();
 					platformTimer.stop();
+					music.stopSound();
 					JOptionPane.showMessageDialog(null, "盡可能下到越多樓層，要繼續請按pause。", "DownTheStairs",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					pause = false;
 					gameTimer.start();
 					platformTimer.start();
+					music.playSound();
 				}
 			} else {
 				// 遊戲尚未開始時按下pause鍵
@@ -247,6 +249,12 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			//btnPlay.setEnabled(false);
 			start = true;
 			p = new player();
+			if (start) {
+				music.stopSound();
+				music.playSound();
+			}else {
+				music.playSound();
+			}
 			// 初始化地磚
 			platforms = new Platform[7];
 			for (int i = 0; i < platforms.length; i++) {
@@ -284,7 +292,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			lives = 12;
 			lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 			lblscore.setText("" + level);
-			menu.setEnabled(false);
+			//menu.setEnabled(false);
 			repaint();
 		} else if (arg0.getSource() == btnExit) {
 			int option = JOptionPane.showConfirmDialog(null, "確定要退出遊戲嗎?", "DownTheStairs", JOptionPane.YES_NO_OPTION);
@@ -489,8 +497,10 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		for (int j = 0; j < platforms.length; j++) {
 			platforms[j].setY(550);
 		}
+		music.stopSound();
 		platformTimer.stop();
 		gameTimer.stop();
+		
 		/*
 		 * if (level != 0) { JOptionPane.showMessageDialog(null, "你得到了" + level + " 分!",
 		 * "Your level", JOptionPane.INFORMATION_MESSAGE); }
@@ -516,8 +526,9 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 						  "Your level", JOptionPane.INFORMATION_MESSAGE);
 				lblRecord2.setText("     " + bestLevel + " by Guest" );
 			}
+			music.stopSound();
 			btnPlay.setEnabled(true);
-			menu.setEnabled(false);
+			//menu.setEnabled(false);
 		}
 	}
 }
