@@ -12,7 +12,7 @@ public class GamePanel extends JPanel {
 	GamePanel() {
 		jbutton_stop = new JButton("µ²§ô");
 		jbutton_stop.setBounds(200, 100, 100, 40);
-		jbutton_stop.addActionListener(e -> new MainFrame(4));// test use
+		//jbutton_stop.addActionListener(e -> new MainFrame(4));// test use
 		add(jbutton_stop);
 		
 		jlabel_blood = new JLabel("show blood");

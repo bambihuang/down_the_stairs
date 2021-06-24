@@ -12,8 +12,9 @@ import javax.swing.*;
 public class GameOverPanel extends JPanel implements ActionListener {
 	JButton jbutton_playagain, jbutton_menu, jbutton_ranking, jbutton_messageboard;
 	JLabel text,score;
+	User user = new User();
 	
-	GameOverPanel() {
+	GameOverPanel(User user) {
 		text = new JLabel("YOUR SCORE:", JLabel.CENTER);
 		text.setBounds(200, 100, 200, 40);
 		text.setFont(new Font("Pixelony", Font.TRUETYPE_FONT, 25));
@@ -60,10 +61,10 @@ public class GameOverPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent evt) { 
 		if (evt.getSource() == jbutton_playagain)
 			// TODO:clear acc score
-			new MainFrame(3);
+			new MainFrame(3,user);
 		else if(evt.getSource() == jbutton_menu)
 			// TODO:clear acc score
-			new MainFrame(2);
+			new MainFrame(2,user);
 		else if (evt.getSource() == jbutton_ranking)
 			new RankingBoard();
 		else if (evt.getSource() == jbutton_messageboard)

@@ -5,6 +5,7 @@ package project;
  */
 public class Enter {
 	public static void main(String[] args) {
-		new MainFrame(1); // 進入註冊登入頁面
+		User user = new User();
+		new MainFrame(1,user); // 進入註冊登入頁面
 	}
 }

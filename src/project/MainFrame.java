@@ -11,12 +11,18 @@ public class MainFrame {
 	private static CardLayout cLayout;
 	private static JPanel mainPanel; // 主面板用來容納所有子面板
 	private int panel;
+	private LogInPanel login;
+	private MenuPanel menu;
+	private GamePanel game;
+	private GameOverPanel gameOver;
+	private User user;
 	
 	// 遊戲的主視窗
 	MainFrame(int panel, User user) {
+		this.user = user;
 		initFont();
-		initFrame(user);
-		setPanel(panel); // 設定欲顯示的子面板
+		setPanel(panel);
+		initFrame();
 		showPanel(); // 顯示對應子面板
 	}
 	
@@ -24,28 +30,36 @@ public class MainFrame {
 		new CustomFont();
 	}
 	
-	private void setPanel(int panel) {
+	private void setPanel(int panel) {// 建立所有子面板 & 設定欲顯示的子面板
 		this.panel = panel;
+		if (mainPanel == null) {
+			cLayout = new CardLayout();
+			mainPanel = new JPanel(cLayout);
+			mainPanel.setSize(600, 600);
+		}
+		if (panel == 1 && login == null) {
+			login = new LogInPanel();
+			mainPanel.add(login,"login");
+		}
+		if (panel == 2 && menu == null) {
+			menu = new MenuPanel(user);
+			mainPanel.add(menu,"menu");
+		}
+		if (panel == 3 && game == null) {
+			game = new GamePanel();
+			mainPanel.add(game,"game");
+		}
+		if (panel == 4 && gameOver == null) {
+			gameOver = new GameOverPanel(user);
+			mainPanel.add(gameOver,"game over");
+		}
 	}
 	
 	private int getPanel() {
 		return panel;
 	}
 	
-	private void initFrame(User user) { // 建立所有子面板及主視窗
-		if (mainPanel == null) {
-			cLayout = new CardLayout();
-			mainPanel = new JPanel(cLayout);
-			mainPanel.setSize(600, 600);
-			LogInPanel login = new LogInPanel();
-			mainPanel.add(login,"login");
-			MenuPanel menu = new MenuPanel(user);
-			mainPanel.add(menu,"menu");
-			GamePanel game = new GamePanel();
-			mainPanel.add(game,"game");
-			GameOverPanel gameOver = new GameOverPanel();
-			mainPanel.add(gameOver,"game over");
-		}
+	private void initFrame() { // 建立主視窗
 		if (jframe == null) {
 			jframe = new JFrame();
 			jframe.add(mainPanel);
