@@ -11,8 +11,11 @@ import javax.swing.*;
 public class MenuPanel extends JPanel implements ActionListener {
 	private JLabel logo;
 	private JButton jbutton_start, jbutton_ranking, jbutton_messageboard, jbutton_logout, jbutton_quit, jbutton_setting;
-
-	MenuPanel() {
+	User usern = new User();
+	
+	MenuPanel(User loginuser) {
+		usern = loginuser;
+		
 		jbutton_start = new JButton(new ImageIcon("img/play.png"));
 		jbutton_start.setBounds(208, 265, 183, 55);
 		jbutton_start.addActionListener(this);
@@ -39,10 +42,17 @@ public class MenuPanel extends JPanel implements ActionListener {
 		jbutton_logout.addActionListener(this);
 		jbutton_logout.setBorderPainted(false);
 		jbutton_logout.setContentAreaFilled(false);
-		this.add(jbutton_logout);
+		if(!(usern.getName()).equals("Guest")) {
+			this.add(jbutton_logout);
+		}
+		
 		
 		jbutton_quit = new JButton(new ImageIcon("img/exit.png"));
-		jbutton_quit.setBounds(308, 448, 92, 92);
+		if(!(usern.getName()).equals("Guest")) {
+			jbutton_quit.setBounds(308, 448, 92, 92);
+		}else {
+			jbutton_quit.setBounds(254, 448, 92, 92);
+		}
 		jbutton_quit.addActionListener(this);
 		jbutton_quit.setBorderPainted(false);
 		jbutton_quit.setContentAreaFilled(false);
@@ -68,7 +78,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent evt) { 
 		if (evt.getSource() == jbutton_start)
-			new MainFrame(3);
+			new GamePlay(usern);
 		else if(evt.getSource() == jbutton_ranking)
 			new RankingBoard();
 		else if (evt.getSource() == jbutton_messageboard)
