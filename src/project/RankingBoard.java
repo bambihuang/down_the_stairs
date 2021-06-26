@@ -11,16 +11,16 @@ public class RankingBoard {
 
 	private class RankingRow extends JPanel {
 		private JLabel rank = new JLabel("", JLabel.LEFT);
-		private JLabel player = new JLabel("Admin", JLabel.CENTER);
-		private JLabel score = new JLabel("Date", JLabel.RIGHT);
+		private JLabel player = new JLabel("", JLabel.CENTER);
+		private JLabel score = new JLabel("", JLabel.RIGHT);
 
 		RankingRow() {
-			rank.setMinimumSize(new Dimension(20, 18));
-			rank.setMaximumSize(new Dimension(20, 18));
+			rank.setMinimumSize(new Dimension(80, 18));
+			rank.setMaximumSize(new Dimension(80, 18));
 			rank.setFont(new Font("Pixelony", Font.TRUETYPE_FONT, 18));
 			rank.setForeground(Color.white);
-			player.setMinimumSize(new Dimension(200, 18));
-			player.setMaximumSize(new Dimension(200, 18));
+			player.setMinimumSize(new Dimension(140, 18));
+			player.setMaximumSize(new Dimension(140, 18));
 			player.setFont(new Font("Pixelony", Font.TRUETYPE_FONT, 18));
 			player.setForeground(Color.white);
 			score.setMinimumSize(new Dimension(80, 18));
@@ -61,7 +61,6 @@ public class RankingBoard {
 	int rowcount;
 	RankingRow message[];
 	ArrayList<RankingRow> msgArray = new ArrayList<>();
-	MysqlConnector mc = new MysqlConnector(MysqlConnector.RANKINGTABLE);
 
 	RankingBoard() {
 		createAndShowGUI();
