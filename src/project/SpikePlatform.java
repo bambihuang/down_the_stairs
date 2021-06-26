@@ -13,7 +13,7 @@ public class SpikePlatform extends Platform{
 		width = imgPlatform.getIconWidth();
 		height = imgPlatform.getIconHeight();
 		xPos = rnd.nextInt(605 - width);
-		yPos = 430;
+		yPos = 530;
 		type = "spike";
 	}
 
