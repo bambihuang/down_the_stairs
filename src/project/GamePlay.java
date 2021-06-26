@@ -12,27 +12,25 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 	private JButton btnPause, btnPlay, btnExit, btnClearRecord, btnrecord;
 	private int level = 0, lives = 12, seconds = 0, bestLevel = 0, s = 0, platformPlayerIsOn = -1;
 	private player p;
-	//private JMenu menu;
 	private boolean newGame = false, start = false, moveRight = false, moveLeft = false, pause = false;
 	private Timer gameTimer, platformTimer;
 	private Platform[] platforms;
 	private Random rnd;
 	private TopSpike ts;
 	private BakGround background;
-	private File highscores = new File("highscores.txt");
+	//private File highscores = new File("highscores.txt");
 	private static String name = "";
-	//private String line = "";
 	private JFrame frame = new JFrame();
-	Music2 music=new Music2();
+	Music2 music = new Music2();
 	JDBC_test2 jdbc = new JDBC_test2();
-	
+
 	/*
 	 * public static void main(String[] args) { new GamePlay(); }
 	 */
 
 	public GamePlay(User loginuser) {
 		this.name = loginuser.getName();
-		
+
 		// lives
 		lblLives = new JLabel();
 		lblLives.setPreferredSize(new Dimension(140, 85));
@@ -94,10 +92,10 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		lblname.setForeground(c1);
 		lblname.setPreferredSize(new Dimension(190, 25));
 		lblname.setHorizontalAlignment(SwingConstants.CENTER);
-		bestLevel = loginuser.getScore();		
-		if(name.equals("Guest")) {
+		bestLevel = loginuser.getScore();
+		if (name.equals("Guest")) {
 			lblRecord2.setText("     " + 0 + " by Guest");
-		}else {
+		} else {
 			lblRecord2.setText("     " + bestLevel + " by " + name);
 		}
 
@@ -179,7 +177,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		frame.setSize(760, 709);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 	}
 
 	public void paintComponent(Graphics g) {
@@ -221,32 +219,31 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			}
 		} else if (arg0.getSource() == btnClearRecord) {
 			int option = JOptionPane.showConfirmDialog(null, "確定要刪除分數紀錄嗎?會直接歸零喔", "ClearRecord",
-					JOptionPane.YES_NO_OPTION);
-			if (option == 0) {
+					JOptionPane.YES_NO_OPTION ,JOptionPane.INFORMATION_MESSAGE);
+			//if (option == 0) {
 				// 清除目前紀錄
-				if (highscores.delete()) {
+				if (option==JOptionPane.YES_OPTION/*highscores.delete()*/) {
 					JOptionPane.showMessageDialog(null, "紀錄已刪除!", "ClearRecord", JOptionPane.INFORMATION_MESSAGE);
-
 					bestLevel = 0;
-					if(! name.equals("Guest")) {
+					if (!name.equals("Guest")) {
 						JDBC_test2 jdbc = new JDBC_test2();
 						User usernew = new User();
 						usernew.setName(name);
 						usernew.setScore(bestLevel);
 						jdbc.score(usernew);
-						lblRecord2.setText("             0" + "by" + name);
-					}else {
-						lblRecord2.setText("             0" + "by Guest " );
+						lblRecord2.setText("     " + bestLevel + " by " + name);
+					} else {
+						lblRecord2.setText("     " + 0 + " by Guest");
 					}
-				} else {
+				} else if(option==JOptionPane.NO_OPTION){
 					JOptionPane.showMessageDialog(null, "取消刪除", "Regret", JOptionPane.ERROR_MESSAGE);
 				}
-			}
+			//}
 		} else if (arg0.getSource() == btnPlay) {
 			s = 0;
 			moveRight = false;
 			moveLeft = false;
-			//btnPlay.setEnabled(false);
+			// btnPlay.setEnabled(false);
 			start = true;
 			if (!newGame) {
 				p = new player();
@@ -288,7 +285,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 				lives = 12;
 				lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
 				lblscore.setText("" + level);
-				//menu.setEnabled(false);
+
 				repaint();
 				music.playSound();
 			} else if (pause) {
@@ -297,20 +294,18 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 				platformTimer.start();
 				music.playSound();
 			}
-			/*if (start) {
-				music.stopSound();
-				music.playSound();
-			}else {
-				music.playSound();
-			}*/
-			
+			/*
+			 * if (start) { music.stopSound(); music.playSound(); }else { music.playSound();
+			 * }
+			 */
+
 		} else if (arg0.getSource() == btnExit) {
 			int option = JOptionPane.showConfirmDialog(null, "確定要退出遊戲嗎?", "DownTheStairs", JOptionPane.YES_NO_OPTION);
 			if (option == 0) {
 				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 				music.stopSound();
-				//System.exit(0);
-				
+				// System.exit(0);
+
 			}
 		}
 		if (arg0.getSource() == gameTimer) {
@@ -365,7 +360,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 				platforms[i].move(seconds);
 				checkCollision();
 				// 當一個地磚超出畫面就新增一個地磚
-				if (platforms[i].getY() == 0 - platforms[i].getHeight()) {
+				if (platforms[i].getY() <= 0 - platforms[i].getHeight()) {
 					int n = rnd.nextInt(5);
 					if (n == 0) {
 						platforms[i] = new NormalPlatform();
@@ -469,6 +464,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 						if (lives <= 0) {
 							lblLives.setIcon(new ImageIcon("img/lives0.png"));
 							endGame();
+							
 						} // 血扣完則遊戲結束
 						platformPlayerIsOn = i;
 					}
@@ -497,7 +493,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		if (p.getY() >= 530 && p.getY() <= 550) {
-			endGame();
+			endGame();	
 		}
 	}
 
@@ -511,35 +507,33 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		music.stopSound();
 		platformTimer.stop();
 		gameTimer.stop();
+
 		
-		/*
-		 * if (level != 0) { JOptionPane.showMessageDialog(null, "你得到了" + level + " 分!",
-		 * "Your level", JOptionPane.INFORMATION_MESSAGE); }
-		 */
+		/*if (level <=bestLevel) { JOptionPane.showMessageDialog(null, "你得到了" + level + " 分!",
+		 "Your level", JOptionPane.INFORMATION_MESSAGE); }*/
+		 
 		// 玩家打破最高紀錄
 		if (level > bestLevel) {
 			bestLevel = level;
-			if(!name.equals("Guest")) {
+			if (!name.equals("Guest")) {
 				JDBC_test2 jdbc = new JDBC_test2();
 				User usernew = new User();
 				usernew.setName(name);
 				usernew.setScore(bestLevel);
 				jdbc.score(usernew);
-				JOptionPane.showMessageDialog(null, "恭喜!你達到新紀錄" + level + "分!", "Congrates!",
+				JOptionPane.showMessageDialog(null, "恭喜!你達到新紀錄"/* + level + "分!"*/, "Congrates!",
 						JOptionPane.INFORMATION_MESSAGE);
 
-			// 寫入最佳得分以及玩家名稱
-				JOptionPane.showMessageDialog(null,
-						"資料已被儲存!", "Finished!", JOptionPane.INFORMATION_MESSAGE);
+				// 寫入最佳得分以及玩家名稱
+				JOptionPane.showMessageDialog(null, "資料已被儲存!", "Finished!", JOptionPane.INFORMATION_MESSAGE);
 				lblRecord2.setText("     " + bestLevel + " by " + name);
-			}else {
-				JOptionPane.showMessageDialog(null, "你得到了" + level + " 分!",
-						  "Your level", JOptionPane.INFORMATION_MESSAGE);
-				lblRecord2.setText("     " + bestLevel + " by Guest" );
+			} else {
+				JOptionPane.showMessageDialog(null, "你得到了" + level + " 分!", "Your level",
+						JOptionPane.INFORMATION_MESSAGE);
+				lblRecord2.setText("     " + bestLevel + " by Guest");
 			}
 			music.stopSound();
 			btnPlay.setEnabled(true);
-			//menu.setEnabled(false);
 		}
 	}
 }
