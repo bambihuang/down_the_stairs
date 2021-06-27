@@ -61,14 +61,14 @@ public class player {
 
 	public void move(int seconds) {
 		int i=0;
-		i=(seconds/4000)+1;
+		i=(seconds/6500)+1;
 		yPos+=i;
 		//yPos++;
 	}
 
 	public void moveOpposite(int seconds) {
 		int i=0;
-		i=(seconds/4000)+1;
+		i=(seconds/6500)+1;
 		yPos-=i;
 		//yPos--;
 	}
