@@ -30,7 +30,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 
 	public GamePlay(User loginuser) {
 		this.name = loginuser.getName();
-
+		
 		// lives
 		lblLives = new JLabel();
 		lblLives.setPreferredSize(new Dimension(140, 85));
