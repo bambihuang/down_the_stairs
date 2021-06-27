@@ -79,9 +79,16 @@ public class MenuPanel extends JPanel implements ActionListener {
 	} // MenuPanel() end
 	
 	public void actionPerformed(ActionEvent evt) { 
-		if (evt.getSource() == jbutton_start)
-			new GamePlay(usern);
-		else if(evt.getSource() == jbutton_ranking)
+		if (evt.getSource() == jbutton_start) {
+			User user = new User();
+			if (!usern.getName().equals("Guest")) {
+				JDBC_test2 jdbc = new JDBC_test2();
+				user = jdbc.login(usern);
+			} else {
+				user = usern;
+			}
+			new GamePlay(user);
+		} else if(evt.getSource() == jbutton_ranking)
 			new RankingBoard();
 		else if (evt.getSource() == jbutton_messageboard)
 			new MessageBoard(usern);
