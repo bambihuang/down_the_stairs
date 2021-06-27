@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 public class NormalPlatform extends Platform{
 	public NormalPlatform() {
 		Random rnd = new Random();
-		imgPlatform = new ImageIcon("img/normal_platform.png");
+		imgPlatform = new ImageIcon(getClass().getResource("/img/normal_platform.png"));
 		width = imgPlatform.getIconWidth();
 		height = imgPlatform.getIconHeight();
 		xPos = rnd.nextInt(605 - width);

@@ -10,7 +10,7 @@ public class TempPlatform extends Platform{
 	Rectangle r;
 	public TempPlatform() {
 		Random rnd = new Random();
-		imgPlatform = new ImageIcon("img/temp_platform.png");
+		imgPlatform = new ImageIcon(getClass().getResource("/img/temp_platform.png"));
 		width = imgPlatform.getIconWidth();
 		height = imgPlatform.getIconHeight();
 		xPos = rnd.nextInt(605 - width);

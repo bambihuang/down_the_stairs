@@ -6,7 +6,7 @@ import java.awt.*;
 import javax.swing.ImageIcon;
 
 public class BakGround {
-	private ImageIcon background = new ImageIcon("img/bg-gif1.gif");//bg.jpg
+	private ImageIcon background = new ImageIcon(getClass().getResource("/img/bg-gif1.gif"));//bg.jpg
 	private int width, height;
 	
 	public BakGround() {

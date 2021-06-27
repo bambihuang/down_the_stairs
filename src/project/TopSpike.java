@@ -10,7 +10,7 @@ public class TopSpike {
 	ImageIcon imgSpike;
 	int width, height;
 	public TopSpike() {
-		imgSpike = new ImageIcon("img/top_spike.png");
+		imgSpike = new ImageIcon(getClass().getResource("/img/top_spike.png"));
 		width = imgSpike.getIconWidth();
 		height = imgSpike.getIconHeight();
 	}
