@@ -5,6 +5,8 @@ import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
 
@@ -14,13 +16,11 @@ public class CustomFont {
 	
 	CustomFont() {
 		try {
-			URL url_pixelony = getClass().getResource("/Fonts/Pixelony.ttf");
-			String pixelonyPath = URLDecoder.decode(url_pixelony.getFile(), "UTF-8");
-			URL url_notosanscjk = getClass().getResource("/Fonts/Pixelony.ttf");
-			String notosanscjkPath = URLDecoder.decode(url_notosanscjk.getFile(), "UTF-8");
+			InputStream stream1 = getClass().getResourceAsStream("/Fonts/Pixelony.ttf");
+			InputStream stream2 = getClass().getResourceAsStream("/Fonts/NotoSansCJK-Regular.ttc");
 		    // create the font to use
-		    Pixelony = Font.createFont(Font.TRUETYPE_FONT, new File(pixelonyPath));
-		    NotoSansCJK = Font.createFont(Font.TRUETYPE_FONT, new File(notosanscjkPath));
+		    Pixelony = Font.createFont(Font.TRUETYPE_FONT,stream1);
+		    NotoSansCJK = Font.createFont(Font.TRUETYPE_FONT,stream2);
 		    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		    // register the font
 		    ge.registerFont(Pixelony);
