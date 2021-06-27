@@ -106,7 +106,7 @@ public class MessageBoard {
 	            BorderFactory.createEmptyBorder(0, 2, 0, 2),border));
 		writePanel.add(writeMsg);
 
-		ImageIcon imageIcon = new ImageIcon("img/send.png"); // load the image to a imageIcon
+		ImageIcon imageIcon = new ImageIcon(getClass().getResource("/img/send.png")); // load the image to a imageIcon
 		Image image = imageIcon.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 42,  java.awt.Image.SCALE_DEFAULT); // scale it the smooth way  
 		imageIcon = new ImageIcon(newimg);  // transform it back

@@ -1,6 +1,8 @@
 package project;
 
 import java.io.File;
+import java.net.URL;
+import java.net.URLDecoder;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -10,6 +12,17 @@ import javax.sound.sampled.FloatControl;
 public class Music2 {
 	public static Clip clip;
 	
+	public String getSoundPath() {
+		try {
+			URL url_music = getClass().getResource("music/8bitsloop_play.wav");
+			String musicPath = URLDecoder.decode(url_music.getFile(), "UTF-8");
+			return musicPath;
+		} catch (Exception ex) {
+			System.out.println("Error with get music path.");
+			ex.printStackTrace();
+			return "";
+		}
+	}
 	public static void playSound() {
 		
 		try {

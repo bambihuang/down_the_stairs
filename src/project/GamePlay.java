@@ -35,7 +35,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		lblLives = new JLabel();
 		lblLives.setPreferredSize(new Dimension(140, 85));
 		lblLives.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
+		lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives" + lives + ".png")));
 
 		// level
 		lblLevel = new JLabel();
@@ -59,21 +59,21 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		JLabel lblTitle = new JLabel();
 		lblTitle = new JLabel();
 		lblTitle.setPreferredSize(new Dimension(240, 110));
-		lblTitle.setIcon(new ImageIcon("img/title.png"));
+		lblTitle.setIcon(new ImageIcon(getClass().getResource("/img/title.png")));
 		lblTitle.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		Font f3 = new Font("Pixelony", Font.PLAIN, 20);
 
-		String record = "img/record.png";
-		Icon iconre = new ImageIcon(record);
+		String record = "/img/record.png";
+		Icon iconre = new ImageIcon(getClass().getResource(record));
 		btnrecord = new JButton(iconre);
 		btnrecord.setBorder(null);
 		btnrecord.setContentAreaFilled(false);
 		btnrecord.setFocusable(false);
 		btnrecord.addActionListener(this);
 
-		String clear = "img/clear.png";
-		Icon iconcl = new ImageIcon(clear);
+		String clear = "/img/clear.png";
+		Icon iconcl = new ImageIcon(getClass().getResource(clear));
 		btnClearRecord = new JButton(iconcl);
 		btnClearRecord.setBorder(null);
 		btnClearRecord.setContentAreaFilled(false);
@@ -99,26 +99,26 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			lblRecord2.setText("     " + bestLevel + " by " + name);
 		}
 
-		String pathHelp = "img/pause.png";
-		Icon iconHelp = new ImageIcon(pathHelp);
+		String pathHelp = "/img/pause.png";
+		Icon iconHelp = new ImageIcon(getClass().getResource(pathHelp));
 		btnPause = new JButton(iconHelp);
 		btnPause.setBorder(null);
 		btnPause.setContentAreaFilled(false);
 		btnPause.setFocusable(false);
 		btnPause.addActionListener(this);
 
-		String pathPlay = "img/goplay.png";
+		String pathPlay = "/img/goplay.png";
 		btnPlay = new JButton(pathPlay);
-		Icon iconPlay = new ImageIcon(pathPlay);
+		Icon iconPlay = new ImageIcon(getClass().getResource(pathPlay));
 		btnPlay = new JButton(iconPlay);
 		btnPlay.setBorder(null);
 		btnPlay.setContentAreaFilled(false);
 		btnPlay.setFocusable(false);
 		btnPlay.addActionListener(this);
 
-		String pathExit = "img/back.png";
+		String pathExit = "/img/back.png";
 		btnExit = new JButton(pathExit);
-		Icon iconExit = new ImageIcon(pathExit);
+		Icon iconExit = new ImageIcon(getClass().getResource(pathExit));
 		btnExit = new JButton(iconExit);
 		btnExit.setBorder(null);
 		btnExit.setContentAreaFilled(false);
@@ -283,7 +283,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 				seconds = 0;
 				level = 0;
 				lives = 12;
-				lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
+				lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives" + lives + ".png")));
 				lblscore.setText("" + level);
 
 				repaint();
@@ -436,9 +436,9 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		// 玩家撞到上方的扣血尖刺
 		if (p.getRectTop().intersects(ts.getRect())) {
 			lives -= 2;
-			lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
+			lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives" + lives + ".png")));
 			if (lives <= 0) {
-				lblLives.setIcon(new ImageIcon("img/lives0.png"));
+				lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives0.png")));
 				endGame();
 			}
 			p.setY(p.getY() + 40);
@@ -453,16 +453,16 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 						lives++;
 					}
 					platformPlayerIsOn = i;
-					lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
+					lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives" + lives + ".png")));
 				} else if (platforms[i].getType().equals("spike")) {
 					// 玩家碰到spike地塊扣血
 					if (platformPlayerIsOn != i) {
 						p.isInjured = true;
 						s = seconds + 40;
 						lives -= 2;
-						lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
+						lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives" + lives + ".png")));
 						if (lives <= 0) {
-							lblLives.setIcon(new ImageIcon("img/lives0.png"));
+							lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives0.png")));
 							endGame();
 							
 						} // 血扣完則遊戲結束
@@ -482,12 +482,12 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 							lives++;
 						}
 
-						lblLives.setIcon(new ImageIcon("img/lives" + lives + ".png"));
+						lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives" + lives + ".png")));
 					}
 					// 地塊消失，玩家下墜
 					if (s - seconds < 10) {
 						p.setY(p.getY() + 5);
-						platforms[i].imgPlatform = new ImageIcon("");
+						platforms[i].imgPlatform = new ImageIcon(getClass().getResource(""));
 					}
 				}
 			}

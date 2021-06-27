@@ -13,7 +13,6 @@ public class MainFrame {
 	private int panel;
 	private LogInPanel login;
 	private MenuPanel menu;
-	private GamePanel game;
 	//private GameOverPanel gameOver;
 	private User user;
 	
@@ -45,14 +44,6 @@ public class MainFrame {
 			menu = new MenuPanel(user);
 			mainPanel.add(menu,"menu");
 		}
-		if (panel == 3 && game == null) {
-			game = new GamePanel();
-			mainPanel.add(game,"game");
-		}
-		/*if (panel == 4 && gameOver == null) {
-			gameOver = new GameOverPanel(user);
-			mainPanel.add(gameOver,"game over");
-		}*/
 	}
 	
 	private int getPanel() {

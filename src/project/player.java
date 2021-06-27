@@ -12,10 +12,10 @@ public class player {
 
 	public player() {
 		direction = EAST;
-		imgPlayerEast = new ImageIcon("img/pacman" + EAST + ".png");
-		imgPlayerWest = new ImageIcon("img/pacman" + WEST + ".png");
-		imgInjuredEast = new ImageIcon("img/pacman" + EAST + "_injured.png");
-		imgInjuredWest = new ImageIcon("img/pacman" + WEST + "_injured.png");
+		imgPlayerEast = new ImageIcon(getClass().getResource("/img/pacman" + EAST + ".png"));
+		imgPlayerWest = new ImageIcon(getClass().getResource("/img/pacman" + WEST + ".png"));
+		imgInjuredEast = new ImageIcon(getClass().getResource("/img/pacman" + EAST + "_injured.png"));
+		imgInjuredWest = new ImageIcon(getClass().getResource("/img/pacman" + WEST + "_injured.png"));
 		width = imgPlayerEast.getIconWidth();
 		height = imgPlayerEast.getIconHeight();
 		xPos = 310 - width / 2;
