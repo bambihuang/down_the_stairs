@@ -463,8 +463,9 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 						p.isInjured = true;
 						s = seconds + 40;
 						lives -= 2;
-						lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives" + lives + ".png")));
-						if (lives <= 0) {
+						if (lives > 0) {
+							lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives" + lives + ".png")));
+						} else if (lives <= 0) {
 							lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives0.png")));
 							endGame();
 							
