@@ -436,6 +436,9 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 		// 玩家撞到上方的扣血尖刺
 		if (p.getRectTop().intersects(ts.getRect())) {
 			lives -= 2;
+			if(lives<0) {
+				lives=0;
+			}
 			lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives" + lives + ".png")));
 			if (lives <= 0) {
 				lblLives.setIcon(new ImageIcon(getClass().getResource("/img/lives0.png")));

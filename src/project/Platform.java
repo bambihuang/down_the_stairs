@@ -41,7 +41,7 @@ public abstract class Platform {
 	public abstract Rectangle getRect();
 	public void move(int seconds) {
 		int i=0;
-		i=(seconds/4000)+1;
+		i=(seconds/6500)+1;
 		yPos-=i;
 		//yPos--;
 	}
