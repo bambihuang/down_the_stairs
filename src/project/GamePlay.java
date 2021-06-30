@@ -400,7 +400,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 			} else if (e.getKeyCode() == KeyEvent.VK_RIGHT && !pause) {
 				p.setDirection(player.EAST);
 				moveRight = true;
-			} else if (e.getKeyCode() == KeyEvent.VK_P) {
+			}/* else if (e.getKeyCode() == KeyEvent.VK_P) {
 				// ª±®a«öp ¹CÀ¸¼È°±
 				if (!pause) {
 					pause = true;
@@ -411,7 +411,7 @@ public class GamePlay extends JPanel implements ActionListener, KeyListener {
 					gameTimer.start();
 					platformTimer.start();
 				}
-			}
+			}*/
 			repaint();
 		}
 	}
