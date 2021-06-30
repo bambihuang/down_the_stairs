@@ -69,9 +69,6 @@ public class MessageBoard {
 	    }
 	}
 	
-	String player = "player1";
-    String newMsg = "";
-    String timestamp = "";
 	JFrame f = new JFrame("Message Board");
 	JPanel mainPanel = new JPanel();
     JPanel boardPanel = new JPanel();
@@ -83,7 +80,6 @@ public class MessageBoard {
 	Message message[];
 	Border border = BorderFactory.createLineBorder(Color.gray);
 	ArrayList<Message> msgArray = new ArrayList<>();
-	MysqlConnector mc = new MysqlConnector(MysqlConnector.MESSAGETABLE);
 	private JDBC_test2 jdbc = new JDBC_test2();
 	User user;
 	
@@ -175,10 +171,6 @@ public class MessageBoard {
 			rowcount++;
 			jdbc.addNewMessage(rowcount, user, writeMsg.getText(), getCurrentTime());
 			writeMsg.setText(null);
-			/*count++;
-			Message newMsg = new Message(count);
-			newMsg.setText(writeMsg.getText(), "player1", getCurrentTime());
-			msgArray.add(0, newMsg);*/
 	        refresh();
 		}
 	}
